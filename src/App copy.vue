@@ -117,18 +117,80 @@ const removeTodo = (todo) => {
       </section>
 
       <div class="flex">
-        <TodoStickyComponent
-          :typeOfTodo="'personal'"
-          :todo_asc="todo_asc"
-          :todo_color="'bg-yellow-200 bg-gradient-to-b from-yellow-300 to-yellow-200'"
-          @removeTodo="removeTodo"
-        />
-        <TodoStickyComponent
-          :typeOfTodo="'business'"
-          :todo_asc="todo_asc"
-          :todo_color="'bg-purple-200 bg-gradient-to-b from-purple-300 to-purple-200'"
-          @removeTodo="removeTodo"
-        />
+        <section class="todo-list-personal flex flex-col">
+          <h3 class="mb-4">PERSONAL</h3>
+          <div class="list">
+            <div
+              v-for="(todo, index) in todo_asc.filter(
+                (todo) => todo.category === 'personal'
+              )"
+              :key="index"
+              :class="`todo-item flex justify-center bg-yellow-200 m-2 p-2 h-44 w-72 shadow-lg shadow-slate-300 rounded-sm
+            bg-gradient-to-b from-yellow-300 to-yellow-200
+            ${todo.done && 'done'}`"
+            >
+              <label>
+                <input type="checkbox" class="text-xl" v-model="todo.done" />
+                <span :class="`bubble mr-2 ${todo.category}`"></span>
+              </label>
+
+              <div class="todo-content">
+                <textarea
+                  type="text"
+                  class="text-3xl bg-transparent amatic-sc-regular text-wrap max-h-min max-w-min resize-none"
+                  :class="{ 'line-through': todo.done }"
+                  v-model="todo.content"
+                ></textarea>
+              </div>
+
+              <div class="actions">
+                <button
+                  class="delete bg-red-600 text-white p-2 w-16 rounded-md bottom-0 right-0 hover:bg-red-500"
+                  @click="removeTodo(todo)"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="todo-list-business flex flex-col">
+          <h3 class="mb-4">BUSINESS</h3>
+          <div class="list">
+            <div
+              v-for="(todo, index) in todo_asc.filter(
+                (todo) => todo.category === 'business'
+              )"
+              :key="index"
+              :class="`todo-item flex justify-center bg-yellow-200 m-2 p-2 h-44 w-72 shadow-lg shadow-slate-300 rounded-sm
+            bg-gradient-to-b from-purple-300 to-purple-200
+            ${todo.done && 'done'}`"
+            >
+              <label>
+                <input type="checkbox" class="text-xl" v-model="todo.done" />
+                <span :class="`bubble mr-2 ${todo.category}`"></span>
+              </label>
+
+              <div class="todo-content">
+                <textarea
+                  type="text"
+                  class="text-3xl bg-transparent max-h-min max-w-min amatic-sc-regular resize-none"
+                  :class="{ 'line-through': todo.done }"
+                  v-model="todo.content"
+                ></textarea>
+              </div>
+
+              <div class="actions">
+                <button
+                  class="delete bg-red-600 text-white p-2 w-16 rounded-md bottom-0 right-0 hover:bg-red-500"
+                  @click="removeTodo(todo)"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   </main>
