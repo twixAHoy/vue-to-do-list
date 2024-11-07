@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, computed, watch } from "vue";
 import TodoStickyComponent from "./components/TodoStickyComponent.vue";
+import AddButtonComponent from "./components/AddButtonComponent.vue";
 
 const todos = ref([]);
 const name = ref("");
@@ -102,16 +103,12 @@ const removeTodo = (todo) => {
           </div>
 
           <div class="flex flex-col">
-            <input
-              class="bg-pink-500 w-80 p-4 text-center text-white rounded-md hover:bg-pink-300 cursor-grab mb-4"
-              type="submit"
-              value="Add todo"
+            <AddButtonComponent
+              :backgroundColor="'bg-pink-500 w-80'"
+              :hoverColor="'hover:bg-pink-300'"
+              :buttonValue="'Add todo'"
             />
-            <input
-              class="bg-green-500 w-80 p-4 text-center text-white rounded-md hover:bg-green-300 cursor-grab"
-              type="submit"
-              value="Add new category"
-            />
+            <AddButtonComponent :buttonValue="'Add new category'" />
           </div>
         </form>
       </section>
